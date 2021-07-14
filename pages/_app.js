@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: #D9E6F6;
+    background: url('https://res2.yourwebsite.life/res/603074afa34a270022bbe41d/6034086aee264c00228f1ab1_optimized_1920.webp');
     font-family: sans-serif;
   }
 
