@@ -20,6 +20,28 @@ function ProfileSidebar(propriedades) {
   )
 }
 
+function ProfileRelationBox(propriedades) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">{propriedades.title} ({propriedades.items.length})</h2>
+      {
+        <ul>
+          {/* {seguidores.map((item) => { }
+            return (
+              <li key={item.id}>
+                <a href={`https://github.com/${item}.png`}>
+                  <img src={item.image} />
+                  <span>{item.title}</span>
+                </a>
+              </li>
+            )
+          })*/}
+        </ul>
+      }
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const githubUser = 'GabrielGSD';
   const pessoasFavoritas = [
@@ -29,11 +51,23 @@ export default function Home() {
     'peas',
     'marcobrunodev',
   ];
+  
   const [comunidades, setComunidades] = React.useState([{
     id: new Date().toISOString(),
     title: 'Eu odeio acordar cedo',
     image: 'https://scontent.fppy4-1.fna.fbcdn.net/v/t1.18169-9/319858_236092643172618_736654017_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=OShPugQP2x0AX91Qfhr&_nc_ht=scontent.fppy4-1.fna&oh=b7dfb02cd81b7f38b8ffed73ccb73f74&oe=60F2995C'
   }]);
+
+  const [seguidores, setSeguidores] = React.useState([]);
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/GabrielGSD/followers')
+    .then((resposta) => {
+      return resposta.json()
+    })
+    .then((repostaCompleta) => {
+      setSeguidores(repostaCompleta)
+    })
+  }, [])
 
   return (
     <> 
@@ -90,6 +124,7 @@ export default function Home() {
         </div>
         
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+          <ProfileRelationBox title="Seguidores" items={seguidores} />
           <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">Comunidade ({comunidades.length})</h2>
             {
